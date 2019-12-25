@@ -18,10 +18,12 @@ target/
 *.iws
 *.iml
 *.ipr
-*.xml
-*.gitignore
+pom.xml
+.gitignore
 *.cmd
 mvnw
+mvnw.cmd
+.mvn
 
 
 ### NetBeans ###
