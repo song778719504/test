@@ -23,6 +23,7 @@ public class test extends HttpServlet {
         Servlet;
         req.getRequestDispatcher();
         resp.sendRedirect();*/
+        System.out.println("1");
 
     }
 }
