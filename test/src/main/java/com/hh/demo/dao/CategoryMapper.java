@@ -1,6 +1,8 @@
 package com.hh.demo.dao;
 
 import com.hh.demo.entity.Category;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface CategoryMapper {
@@ -43,4 +45,10 @@ public interface CategoryMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Category record);
+
+    /**
+     * 通过父id查询商品，返回商品集合
+     */
+    List<Category> selectByParentId(@Param("parentId") Integer parentId);
+
 }

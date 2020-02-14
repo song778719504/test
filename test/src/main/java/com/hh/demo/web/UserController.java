@@ -38,7 +38,7 @@ public class UserController {
 
     @RequestMapping("logout.do")
     public ServerResponse logout(HttpSession session){
-        session.removeAttribute(Consts.USER);
+        session.setAttribute(Consts.USER,null);
         return ServerResponse.serverResponseBySuccess(null,null);
     }
 

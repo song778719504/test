@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserService implements IUserService {
 
     @Resource
     UserMapper userMapper;
