@@ -1,6 +1,8 @@
 package com.hh.demo.dao;
 
 import com.hh.demo.entity.User;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface UserMapper {
@@ -43,4 +45,20 @@ public interface UserMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(User record);
+
+    /**
+     * 按用户名查找用户信息
+     */
+    int selectByUsername(@Param("uname") String username);
+
+    /**
+     * 按用户名查找用户信息
+     */
+    int selectByEmail(@Param("email") String email);
+
+    /**
+     * 按用户名查找用户信息
+     */
+    User selectByUsernameAndPassword(@Param("uname") String username,
+                                    @Param("pword") String password);
 }

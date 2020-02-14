@@ -1,10 +1,45 @@
 package com.hh.demo.web;
 
+import com.hh.demo.common.Consts;
+import com.hh.demo.common.ServerResponse;
+import com.hh.demo.entity.User;
+import com.hh.demo.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import javax.servlet.http.HttpSession;
+
+@RestController
+@RequestMapping("/user")
 public class UserController {
 
 
+    @Autowired
+    IUserService userService;
+
+    @RequestMapping("register.do")
+    public ServerResponse register(User user){
+        return userService.registerLogic(user);
+    }
+
+    @RequestMapping("login.do")
+    public ServerResponse login(String username, String password, HttpSession session){
+
+        ServerResponse sr = userService.loginLogic(username,password);
+
+        if (sr.isSuccess()) {
+            session.setAttribute(Consts.USER,sr.getData());
+        }
+        return sr;
+    }
+
+    @RequestMapping("logout.do")
+    public ServerResponse logout(HttpSession session){
+        session.removeAttribute(Consts.USER);
+        return ServerResponse.serverResponseBySuccess(null,null);
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.neuedu.utils;
+package com.hh.demo;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
