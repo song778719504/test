@@ -20,11 +20,14 @@ public class UserController {
     @Autowired
     IUserService userService;
 
+    //注册
     @RequestMapping("register.do")
     public ServerResponse register(User user){
         return userService.registerLogic(user);
     }
 
+
+    //登录
     @RequestMapping("login.do")
     public ServerResponse login(String username, String password, HttpSession session){
 
@@ -36,6 +39,8 @@ public class UserController {
         return sr;
     }
 
+
+    //登出
     @RequestMapping("logout.do")
     public ServerResponse logout(HttpSession session){
         session.setAttribute(Consts.USER,null);

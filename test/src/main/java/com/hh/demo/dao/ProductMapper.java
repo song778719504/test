@@ -1,6 +1,8 @@
 package com.hh.demo.dao;
 
 import com.hh.demo.entity.Product;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface ProductMapper {
@@ -43,4 +45,15 @@ public interface ProductMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Product record);
+
+
+    /**
+     * 通过关键字和类别查询
+     */
+
+    List<Product> findProductByCategoryIdsAndKeyword(
+            @Param("categoryList") List<Integer> categoryList,
+            @Param("keyword") String keyword,
+            @Param("orderBy") String orderBy);
+
 }

@@ -57,9 +57,9 @@
       question = #{question,jdbcType=VARCHAR},
       answer = #{answer,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      ip = #{ip,jdbcType=VARCHAR}
+      ip = #{ip,jdbcType=VARCHAR},
+      update_time = now()
+
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
