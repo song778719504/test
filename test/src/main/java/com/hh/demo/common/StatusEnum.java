@@ -33,6 +33,9 @@ public enum StatusEnum {
     PRODUCT_NOT_EXISTS(21,"商品不存在"),
     PRODUCT_UPDATE_FAIL(22,"商品更新失败"),
     PRODUCT_INSERT_FAIL(23,"商品添加失败"),
+    PRODUCT_NAME_NOT_EMPTY(24,"商品名称不能为空"),
+    PRODUCT_PRICE_NOT_EMPTY(25,"商品价格不能为空"),
+    PRODUCT_STOCK_NOT_EMPTY(26,"商品数量不能为空"),
 
 
 

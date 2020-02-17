@@ -34,6 +34,30 @@ public class ProductService implements IProductService {
                     StatusEnum.PRODUCT_NOT_EMPTY.getStatus(),
                     StatusEnum.PRODUCT_NOT_EMPTY.getMsg());
         }
+        //种类id非空判断
+        if (product.getCategoryId() == null){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.CATEGORY_ID_NOT_EMPTY.getStatus(),
+                    StatusEnum.CATEGORY_ID_NOT_EMPTY.getMsg());
+        }
+        //商品名称非空判断
+        if (product.getName() == null){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PRODUCT_NAME_NOT_EMPTY.getStatus(),
+                    StatusEnum.PRODUCT_NAME_NOT_EMPTY.getMsg());
+        }
+        //商品价格非空判断
+        if (product.getPrice() == null){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PRODUCT_PRICE_NOT_EMPTY.getStatus(),
+                    StatusEnum.PRODUCT_PRICE_NOT_EMPTY.getMsg());
+        }
+        //商品数量非空判断
+        if (product.getStock() == null){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PRODUCT_STOCK_NOT_EMPTY.getStatus(),
+                    StatusEnum.PRODUCT_STOCK_NOT_EMPTY.getMsg());
+        }
         String imgs = product.getSubImages();
         if (imgs != null && imgs.length() > 0 && product.getMainImage() == null){
             String mainImg = imgs.split(",")[0];
@@ -95,10 +119,11 @@ public class ProductService implements IProductService {
                 }
             }
         }
-        if (keyword == null || "".equals(keyword)){
+        if (keyword != null){
             keyword = "%"+keyword+"%";
         }
         PageHelper.startPage(pageNum,pageSize);
+        System.out.println(orderBy);
         List<Product> productList = productMapper.findProductByCategoryIdsAndKeyword(categoryIdList,keyword,orderBy);
 
         PageInfo pageInfo = new PageInfo(productList);
