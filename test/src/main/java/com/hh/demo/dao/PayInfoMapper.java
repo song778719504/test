@@ -1,6 +1,6 @@
 package com.hh.demo.dao;
 
-import com.hh.demo.entity.PayInfo;
+import com.hh.demo.entity.pojo.PayInfo;
 import java.util.List;
 
 public interface PayInfoMapper {

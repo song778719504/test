@@ -1,6 +1,6 @@
 package com.hh.demo.dao;
 
-import com.hh.demo.entity.Shipping;
+import com.hh.demo.entity.pojo.Shipping;
 import java.util.List;
 
 public interface ShippingMapper {

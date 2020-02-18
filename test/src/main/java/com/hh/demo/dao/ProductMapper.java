@@ -1,6 +1,6 @@
 package com.hh.demo.dao;
 
-import com.hh.demo.entity.Product;
+import com.hh.demo.entity.pojo.Product;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -36,6 +36,7 @@ public enum StatusEnum {
     PRODUCT_NAME_NOT_EMPTY(24,"商品名称不能为空"),
     PRODUCT_PRICE_NOT_EMPTY(25,"商品价格不能为空"),
     PRODUCT_STOCK_NOT_EMPTY(26,"商品数量不能为空"),
+    PRODUCT_OFFLINE_OR_DELETE(27,"商品已下架或删除"),
 
 
 

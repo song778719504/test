@@ -3,7 +3,7 @@ package com.hh.demo.web;
 import com.hh.demo.common.Consts;
 import com.hh.demo.common.ServerResponse;
 import com.hh.demo.common.StatusEnum;
-import com.hh.demo.entity.User;
+import com.hh.demo.entity.pojo.User;
 import com.hh.demo.service.IProductService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +37,13 @@ public class ProductFrontController {
             );
         }
         return productService.list(categoryId,keyword,pageNum,pageSize,orderBy);
+    }
+
+
+    @RequestMapping("detail.do")
+    public ServerResponse detail(Integer productId){
+
+        return productService.detail(productId);
     }
 
 }

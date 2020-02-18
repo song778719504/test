@@ -1,7 +1,7 @@
 package com.hh.demo.service;
 
 import com.hh.demo.common.ServerResponse;
-import com.hh.demo.entity.User;
+import com.hh.demo.entity.pojo.User;
 
 public interface IUserService {
 

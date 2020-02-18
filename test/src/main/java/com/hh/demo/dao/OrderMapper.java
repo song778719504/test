@@ -1,6 +1,6 @@
 package com.hh.demo.dao;
 
-import com.hh.demo.entity.Order;
+import com.hh.demo.entity.pojo.Order;
 import java.util.List;
 
 public interface OrderMapper {

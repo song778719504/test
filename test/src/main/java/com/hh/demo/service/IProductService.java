@@ -1,7 +1,7 @@
 package com.hh.demo.service;
 
 import com.hh.demo.common.ServerResponse;
-import com.hh.demo.entity.Product;
+import com.hh.demo.entity.pojo.Product;
 
 public interface IProductService {
 
@@ -12,5 +12,7 @@ public interface IProductService {
                         Integer pageNum,
                         Integer pageSize,
                         String orderBy);
+
+    ServerResponse detail(Integer productId);
 
 }

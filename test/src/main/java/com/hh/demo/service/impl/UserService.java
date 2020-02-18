@@ -1,11 +1,11 @@
 package com.hh.demo.service.impl;
 
-import com.hh.demo.MD5Utils;
+import com.hh.demo.utils.MD5Utils;
 import com.hh.demo.common.RoleEnum;
 import com.hh.demo.common.ServerResponse;
 import com.hh.demo.common.StatusEnum;
 import com.hh.demo.dao.UserMapper;
-import com.hh.demo.entity.User;
+import com.hh.demo.entity.pojo.User;
 import com.hh.demo.service.IUserService;
 import org.springframework.stereotype.Service;
 

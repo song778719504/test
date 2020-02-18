@@ -2,11 +2,13 @@ package com.hh.demo.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hh.demo.common.ProductStatusEnum;
 import com.hh.demo.common.ServerResponse;
 import com.hh.demo.common.StatusEnum;
 import com.hh.demo.dao.ProductMapper;
-import com.hh.demo.entity.Category;
-import com.hh.demo.entity.Product;
+import com.hh.demo.entity.VO.ProductDateVo;
+import com.hh.demo.entity.VO.ProductListVO;
+import com.hh.demo.entity.pojo.Product;
 import com.hh.demo.service.IProductService;
 import org.springframework.stereotype.Service;
 
@@ -96,7 +98,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public ServerResponse list(Integer categoryId, String keyword, Integer pageNum, Integer pageSize, String orderBy) {
+    public ServerResponse list(Integer categoryId,
+                               String keyword,
+                               Integer pageNum,
+                               Integer pageSize,
+                               String orderBy) {
 
         //判断是否传入了categoryId和keyword
         if (categoryId == -1 && (keyword == null || "".equals(keyword))){
@@ -123,10 +129,47 @@ public class ProductService implements IProductService {
             keyword = "%"+keyword+"%";
         }
         PageHelper.startPage(pageNum,pageSize);
-        System.out.println(orderBy);
+
+        if (orderBy != null && !"".equals(orderBy)){
+            String[] orders = orderBy.split("_");
+            PageHelper.orderBy(orders[0]+" "+orders[1]);
+        }
+
         List<Product> productList = productMapper.findProductByCategoryIdsAndKeyword(categoryIdList,keyword,orderBy);
 
-        PageInfo pageInfo = new PageInfo(productList);
+        List<ProductListVO> productListVOList = new ArrayList<>();
+        for (Product p : productList){
+            ProductListVO productListVO = new ProductListVO();
+            productListVO.change(p);
+            productListVOList.add(productListVO);
+        }
+
+
+        PageInfo pageInfo = new PageInfo(productListVOList);
         return ServerResponse.serverResponseBySuccess("",pageInfo);
     }
+
+    @Override
+    public ServerResponse detail(Integer productId) {
+
+        if (productId == null) {
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PARAM_NOT_EMPTY.getStatus(),
+                    StatusEnum.PARAM_NOT_EMPTY.getMsg()
+            );
+        }
+
+        Product product = productMapper.selectByPrimaryKey(productId);
+        if (product.getStatus() == ProductStatusEnum.PRODUCT_ONLINE.getStatus()){
+            //商品已经下架或被删除
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PRODUCT_OFFLINE_OR_DELETE.getStatus(),
+                    StatusEnum.PRODUCT_OFFLINE_OR_DELETE.getMsg()
+            );
+        }
+        ProductDateVo productDateVo = new ProductDateVo().product2vo(product);
+
+        return ServerResponse.serverResponseBySuccess(null,productDateVo);
+    }
+
 }

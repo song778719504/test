@@ -3,7 +3,7 @@ package com.hh.demo.service.impl;
 import com.hh.demo.common.ServerResponse;
 import com.hh.demo.common.StatusEnum;
 import com.hh.demo.dao.CategoryMapper;
-import com.hh.demo.entity.Category;
+import com.hh.demo.entity.pojo.Category;
 import com.hh.demo.service.ICategoryService;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.hh.demo.dao;
 
-import com.hh.demo.entity.User;
+import com.hh.demo.entity.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.hh.demo.web;
 
 import com.hh.demo.dao.CartMapper;
-import com.hh.demo.entity.Cart;
+import com.hh.demo.entity.pojo.Cart;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,6 +1,6 @@
 package com.hh.demo.dao;
 
-import com.hh.demo.entity.Cart;
+import com.hh.demo.entity.pojo.Cart;
 import java.util.List;
 
 public interface CartMapper {
