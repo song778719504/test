@@ -22,6 +22,8 @@ mybatis:
 upload:
   uploadPath: E:\ttt\test\src\main\resources\static\img
 
+user:
+  username: root
 
 redis:
   maxTotal: 8

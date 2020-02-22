@@ -6,7 +6,7 @@ import com.hh.demo.utils.DateUtils;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ProductDateVo {
+public class ProductDetailVo {
 
     private Integer id;
     private Integer categoryId;
@@ -118,7 +118,7 @@ public class ProductDateVo {
         this.updateTime = updateTime;
     }
 
-    public ProductDateVo product2vo(Product product){
+    public ProductDetailVo product2vo(Product product){
         this.setCategoryId(product.getCategoryId());
         this.setCreateTime(DateUtils.date2Str(product.getCreateTime()));
         this.setDetail(product.getDetail());

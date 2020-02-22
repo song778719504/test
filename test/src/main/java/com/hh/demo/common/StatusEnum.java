@@ -39,6 +39,11 @@ public enum StatusEnum {
     PRODUCT_OFFLINE_OR_DELETE(27,"商品已下架或删除"),
 
 
+    PRODUCT_ADD_CART_FAIL(28,"商品加入购物车失败"),
+    PRODUCT_UPDATE_CART_FAIL(29,"购物车商品更新失败"),
+    PRODUCT_DELETE_CART_FAIL(30,"购物车商品删除失败"),
+
+
 
     ;
 

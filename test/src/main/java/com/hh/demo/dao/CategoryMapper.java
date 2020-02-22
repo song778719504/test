@@ -1,5 +1,6 @@
 package com.hh.demo.dao;
 
+import com.hh.demo.entity.pojo.Cart;
 import com.hh.demo.entity.pojo.Category;
 import org.apache.ibatis.annotations.Param;
 
@@ -50,5 +51,7 @@ public interface CategoryMapper {
      * 通过父id查询商品，返回商品集合
      */
     List<Category> selectByParentId(@Param("parentId") Integer parentId);
+
+
 
 }

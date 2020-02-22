@@ -6,7 +6,7 @@ import com.hh.demo.common.ProductStatusEnum;
 import com.hh.demo.common.ServerResponse;
 import com.hh.demo.common.StatusEnum;
 import com.hh.demo.dao.ProductMapper;
-import com.hh.demo.entity.VO.ProductDateVo;
+import com.hh.demo.entity.VO.ProductDetailVo;
 import com.hh.demo.entity.VO.ProductListVO;
 import com.hh.demo.entity.pojo.Product;
 import com.hh.demo.service.IProductService;
@@ -160,14 +160,21 @@ public class ProductService implements IProductService {
         }
 
         Product product = productMapper.selectByPrimaryKey(productId);
-        if (product.getStatus() == ProductStatusEnum.PRODUCT_ONLINE.getStatus()){
+        if (product == null){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PRODUCT_NOT_EXISTS.getStatus(),
+                    StatusEnum.PRODUCT_NOT_EXISTS.getMsg()
+            );
+        }
+        if (product.getStatus() != ProductStatusEnum.PRODUCT_ONLINE.getStatus()){
             //商品已经下架或被删除
             return ServerResponse.serverResponseByFail(
                     StatusEnum.PRODUCT_OFFLINE_OR_DELETE.getStatus(),
                     StatusEnum.PRODUCT_OFFLINE_OR_DELETE.getMsg()
             );
         }
-        ProductDateVo productDateVo = new ProductDateVo().product2vo(product);
+
+        ProductDetailVo productDateVo = new ProductDetailVo().product2vo(product);
 
         return ServerResponse.serverResponseBySuccess(null,productDateVo);
     }
