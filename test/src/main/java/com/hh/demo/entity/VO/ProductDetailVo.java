@@ -4,7 +4,6 @@ import com.hh.demo.entity.pojo.Product;
 import com.hh.demo.utils.DateUtils;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class ProductDetailVo {
 

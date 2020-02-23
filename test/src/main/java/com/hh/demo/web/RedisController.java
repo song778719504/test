@@ -10,22 +10,18 @@ import redis.clients.jedis.JedisPool;
 @RestController
 public class RedisController {
 
-
     @Autowired
     JedisPool jedisPool;
 
     @RequestMapping("/redis")
     public  String  set(){
 
-
         Jedis jedis= jedisPool.getResource();
         jedis.set("neuedu","fy2020");
 
         String value= jedis.get("neuedu");
         System.out.println(value);
-
-        jedisPool.returnResource(jedis);
-
+        jedis.close();
 
         return  value;
     }

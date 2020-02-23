@@ -38,3 +38,4 @@ redis:
   redisPort: 6379
   redisPassword: song778719504
   timeout: 1000
+  kvstore: kvstore

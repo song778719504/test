@@ -53,7 +53,6 @@ public interface ProductMapper {
 
     List<Product> findProductByCategoryIdsAndKeyword(
             @Param("categoryList") List<Integer> categoryList,
-            @Param("keyword") String keyword,
-            @Param("orderBy") String orderBy);
+            @Param("keyword") String keyword);
 
 }

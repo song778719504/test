@@ -132,8 +132,5 @@
         </foreach>
       </if>
     </where>
-    <!--<if test="orderBy != null and ''.equals(orderBy)">
-      order by ${orderBy}
-    </if>-->
   </select>
 </mapper>

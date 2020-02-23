@@ -135,7 +135,7 @@ public class ProductService implements IProductService {
             PageHelper.orderBy(orders[0]+" "+orders[1]);
         }
 
-        List<Product> productList = productMapper.findProductByCategoryIdsAndKeyword(categoryIdList,keyword,orderBy);
+        List<Product> productList = productMapper.findProductByCategoryIdsAndKeyword(categoryIdList,keyword);
 
         List<ProductListVO> productListVOList = new ArrayList<>();
         for (Product p : productList){
