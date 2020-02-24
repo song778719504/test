@@ -55,4 +55,9 @@ public interface ProductMapper {
             @Param("categoryList") List<Integer> categoryList,
             @Param("keyword") String keyword);
 
+    /**
+     * 商品扣库存
+     */
+    int reduceStock(@Param("productId") Integer productId,
+                    @Param("stock") Integer stock);
 }

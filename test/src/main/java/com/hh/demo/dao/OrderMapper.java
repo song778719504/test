@@ -1,6 +1,9 @@
 package com.hh.demo.dao;
 
 import com.hh.demo.entity.pojo.Order;
+import com.hh.demo.entity.pojo.OrderItem;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface OrderMapper {

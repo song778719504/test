@@ -11,6 +11,7 @@ import com.hh.demo.entity.pojo.Cart;
 import com.hh.demo.service.ICartService;
 import com.hh.demo.service.IProductService;
 import com.hh.demo.utils.BigDecimalUtil;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -258,5 +259,42 @@ public class CartService implements ICartService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public ServerResponse findCartByUserIdAndChecked(Integer userId) {
+
+        //登录判断
+        //需要判断嘛？传进来不肯定是登录过的嘛
+        if (userId == null){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.NO_LOGIN.getStatus(),
+                    StatusEnum.NO_LOGIN.getMsg()
+            );
+        }
+        List<Cart> cartList = cartMapper.findCartByUserIdAndChecked(userId);
+
+        return ServerResponse.serverResponseBySuccess(null,cartList);
+    }
+
+    @Override
+    public ServerResponse deleteBatchByIds(List<Cart> cartList) {
+
+        if (cartList == null || cartList.size() == 0){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PARAM_NOT_EMPTY.getStatus(),
+                    StatusEnum.PARAM_NOT_EMPTY.getMsg()
+            );
+        }
+
+        int result  = cartMapper.deleteBatch(cartList);
+
+        if (result <= 0){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.CART_CLEAN_FAIL.getStatus(),
+                    StatusEnum.CART_CLEAN_FAIL.getMsg()
+            );
+        }
+        return ServerResponse.serverResponseBySuccess(null,null);
     }
 }

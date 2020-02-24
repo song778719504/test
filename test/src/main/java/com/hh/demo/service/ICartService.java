@@ -1,6 +1,9 @@
 package com.hh.demo.service;
 
 import com.hh.demo.common.ServerResponse;
+import com.hh.demo.entity.pojo.Cart;
+
+import java.util.List;
 
 public interface ICartService {
 
@@ -23,5 +26,15 @@ public interface ICartService {
      * 移除购物车中某个产品
      */
     ServerResponse delete(Integer userId,String productIds);
+
+    /**
+     * 查询购物车中已选中的商品
+     */
+    ServerResponse findCartByUserIdAndChecked(Integer userId);
+
+    /**
+     * 批量删除购物车商品
+     */
+    ServerResponse deleteBatchByIds(List<Cart> cartList);
 
 }

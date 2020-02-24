@@ -43,6 +43,15 @@ public enum StatusEnum {
     PRODUCT_UPDATE_CART_FAIL(29,"购物车商品更新失败"),
     PRODUCT_DELETE_CART_FAIL(30,"购物车商品删除失败"),
 
+    //订单
+    ADDRESS_NOT_EMPTY(31,"收货地址不能为空"),
+    USER_CART_EXISTS(32,"用户购物车为空"),
+    PRODUCT_STOCK_NOT_FULL(33,"商品库存不足"),
+    ORDER_CREATE_FAIL(34,"订单拆功能键失败"),
+    ORDER_ITEM_CREATE_FAIL(35,"订单明细创建失败"),
+    REDUCE_STOCK_FAIL(36,"商品扣库存失败"),
+    CART_CLEAN_FAIL(37,"购物车清空失败"),
+
 
 
     ;

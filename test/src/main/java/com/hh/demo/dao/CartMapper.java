@@ -52,6 +52,12 @@ public interface CartMapper {
      */
     List<Cart> findCartByUserId(@Param("userId") Integer userId);
 
+    /**
+     * 根据userId查询已选中的购物信息
+     */
+    List<Cart> findCartByUserIdAndChecked(@Param("userId") Integer userId);
+
+
 
     /**
      * 根据productId修改quantity
@@ -75,4 +81,10 @@ public interface CartMapper {
      */
     int deleteByUserIdAndProductIds(@Param("userId") Integer userId,
                                     @Param("productIds") String productIds);
+
+    /**
+     * 批量删除购物车信息
+     */
+    int deleteBatch(@Param("cartList") List<Cart> cartList);
+
 }
