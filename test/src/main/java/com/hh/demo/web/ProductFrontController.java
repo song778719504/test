@@ -30,12 +30,7 @@ public class ProductFrontController {
     ){
         //登录判断
         User user = (User)session.getAttribute(Consts.USER);
-        if (user == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.NO_LOGIN.getStatus(),
-                    StatusEnum.NO_LOGIN.getMsg()
-            );
-        }
+
         return productService.list(categoryId,keyword,pageNum,pageSize,orderBy);
     }
 

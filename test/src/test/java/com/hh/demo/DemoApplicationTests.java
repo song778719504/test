@@ -16,7 +16,7 @@ class DemoApplicationTests {
     @Test
     void contextLoads() {
 
-        cartMapper.selectByPrimaryKey(206);
+
 
     }
 

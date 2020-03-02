@@ -23,14 +23,17 @@ public class OrderController {
     public ServerResponse create(HttpSession session,Integer shippingId){
 
         User user = (User)session.getAttribute(Consts.USER);
-        if (user == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.NO_LOGIN.getStatus(),
-                    StatusEnum.NO_LOGIN.getMsg()
-            );
-        }
+
 
         return orderService.createOrder(user.getId(),shippingId);
+
+    }
+
+    @RequestMapping("cancel.do")
+    public ServerResponse cancel(Long orderNo){
+
+
+        return orderService.cancelOrder(orderNo);
 
     }
 

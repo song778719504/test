@@ -27,12 +27,7 @@ public class CartController {
     public ServerResponse list(HttpSession session){
         //登录判断
         User user = (User)session.getAttribute(Consts.USER);
-        if (user == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.NO_LOGIN.getStatus(),
-                    StatusEnum.NO_LOGIN.getMsg()
-            );
-        }
+
         return cartService.list(user.getId());
     }
 
@@ -42,42 +37,16 @@ public class CartController {
 
         //登录判断
         User user = (User)session.getAttribute(Consts.USER);
-        if (user == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.NO_LOGIN.getStatus(),
-                    StatusEnum.NO_LOGIN.getMsg()
-            );
-        }
 
         return cartService.add(user.getId(),productId,count);
     }
 
-    @RequestMapping("update.do")
-    public ServerResponse update(HttpSession session,Integer productId,Integer count){
-
-        //登录判断
-        User user = (User)session.getAttribute(Consts.USER);
-        if (user == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.NO_LOGIN.getStatus(),
-                    StatusEnum.NO_LOGIN.getMsg()
-            );
-        }
-        return cartService.update(user.getId(),productId,count);
-
-    }
 
     @RequestMapping("delete_product.do")
     public ServerResponse delete(HttpSession session,String productIds){
 
         //登录判断
         User user = (User)session.getAttribute(Consts.USER);
-        if (user == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.NO_LOGIN.getStatus(),
-                    StatusEnum.NO_LOGIN.getMsg()
-            );
-        }
 
         return cartService.delete(user.getId(),productIds );
 

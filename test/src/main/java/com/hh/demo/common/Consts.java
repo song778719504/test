@@ -36,6 +36,38 @@ public class Consts {
         }
     }
 
+    public enum PaymentPlatform {
+
+        ALIPAY(1, "支付宝"),
+        WECHATPAY(2, "微信"),
+
+        ;
+
+        private int check;
+        private String desc;
+
+        PaymentPlatform(int check, String desc) {
+            this.check = check;
+            this.desc = desc;
+        }
+
+        public int getCheck() {
+            return check;
+        }
+
+        public void setCheck(int check) {
+            this.check = check;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+    }
+
     public enum OrderStatusEnum{
 
         CANCELED(0,"已取消"),

@@ -24,7 +24,7 @@ import java.util.UUID;
 @RequestMapping("/manage/product/")
 public class ProductController {
 
-    @Value(("${upload.uploadPath}"))
+    @Value("${upload.uploadPath}")
     String uploadPath;
 
     @Autowired
@@ -82,12 +82,6 @@ public class ProductController {
 
         //登录判断
         User user = (User)session.getAttribute(Consts.USER);
-        if (user == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.NO_LOGIN.getStatus(),
-                    StatusEnum.NO_LOGIN.getMsg()
-            );
-        }
         //管理员权限认证
         if (user.getRole() != 0){
             return ServerResponse.serverResponseByFail(

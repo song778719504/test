@@ -51,4 +51,6 @@ public interface OrderItemMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(OrderItem record);
+
+    List<OrderItem> findOrderItemsByOrderNo(@Param("orderNo") Long orderNo);
 }

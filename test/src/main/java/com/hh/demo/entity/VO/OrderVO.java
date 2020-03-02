@@ -5,21 +5,30 @@ import java.util.List;
 
 public class OrderVO {
 
-     private Long orderNo;
-     private BigDecimal payment;
-     private Integer paymentType;
-     private String paymentTypeDesc;
-     private Integer postage;
-     private Integer status;
-     private String statusDesc;
-     private String paymentTime;
-     private String sendTime;
-     private String endTime;
-     private String closeTime;
-     private String createTime;
-     private Integer shippingId;
-     private ShippingVO shippingVo;
-     private List<OrderItemVO> orderItemVOList;
+    private Integer userId;
+    private Long orderNo;
+    private BigDecimal payment;
+    private Integer paymentType;
+    private String paymentTypeDesc;
+    private Integer postage;
+    private Integer status;
+    private String statusDesc;
+    private String paymentTime;
+    private String sendTime;
+    private String endTime;
+    private String closeTime;
+    private String createTime;
+    private Integer shippingId;
+    private ShippingVO shippingVo;
+    private List<OrderItemVO> orderItemVOList;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public Long getOrderNo() {
         return orderNo;

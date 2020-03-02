@@ -18,6 +18,7 @@ import com.hh.demo.service.IProductService;
 import com.hh.demo.utils.BigDecimalUtil;
 import com.hh.demo.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -114,6 +115,7 @@ public class OrderService implements IOrderService {
 
     public OrderVO assembleOrderVO(Order order,List<OrderItem> orderItemList,Integer shippingId){
         OrderVO orderVO = new OrderVO();
+        orderVO.setUserId(order.getUserId());
         orderVO.setOrderNo(order.getOrderNo());
         orderVO.setPayment(order.getPayment());
         orderVO.setPaymentType(order.getPaymentType());
@@ -282,4 +284,69 @@ public class OrderService implements IOrderService {
 
     }
 
+
+    //定时任务
+    //每隔10秒执行一次
+    //@Scheduled(cron = "0/10 * * * * ?")
+    public void closeOrder(){
+
+
+        System.out.println("========测试定时任务========");
+
+    }
+
+
+    @Override
+    public ServerResponse cancelOrder(Long orderNo) {
+        return null;
+    }
+
+
+    @Override
+    public ServerResponse findOrderByOrderNo(Long orderNo) {
+
+        //step1:参数非空校验
+        if (orderNo == null){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PARAM_NOT_EMPTY.getStatus(),
+                    StatusEnum.PARAM_NOT_EMPTY.getMsg()
+            );
+        }
+
+        //step2:根据订单号查询订单
+        Order order=orderMapper.findOrderByOrderNo(orderNo);
+        if(order==null){
+            return ServerResponse.serverResponseByFail(StatusEnum.ORDER_NOT_EXISTS.getStatus(),StatusEnum.ORDER_NOT_EXISTS.getMsg());
+        }
+        List<OrderItem> orderItemList=orderItemMapper.findOrderItemsByOrderNo(orderNo);
+
+
+        OrderVO orderVO=assembleOrderVO(order,orderItemList,order.getShippingId());
+
+
+        return ServerResponse.serverResponseBySuccess(null,orderVO);
+    }
+
+
+    @Override
+    public ServerResponse updateOrderStatus(
+            Long orderNo, String payTime, Integer orderStatus) {
+
+        if (orderNo == null || payTime == null || "".equals(payTime) ||orderStatus == null){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PARAM_NOT_EMPTY.getStatus(),
+                    StatusEnum.PARAM_NOT_EMPTY.getMsg()
+            );
+        }
+
+        int result = orderMapper.updateOrderStatus(orderNo,DateUtils.srt2Date(payTime),orderStatus);
+        if (result <= 0){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.ORDER_STATUS_FAIL.getStatus(),
+                    StatusEnum.ORDER_STATUS_FAIL.getMsg()
+            );
+        }
+
+        return ServerResponse.serverResponseBySuccess(null,null);
+    }
 }

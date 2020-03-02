@@ -39,3 +39,11 @@ redis:
   redisPassword: song778719504
   timeout: 1000
   kvstore: kvstore
+
+alipay:
+  callback:
+    url: http://eemvzs.natappfree.cc/order/alipay_callback.do
+  qrcode:
+    url: E:\ttt\test\src\main\resources\static\pngs
+  public:
+    key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkknOmn7kA0lJLG5D5FFn3le1jlMHW2gLx2F1xJjz3aCrL/gcBMBRgNd+5dbv4LZ9sbaSa+rcq/R2KueuiRJoeR/0uQnOc+zuEguR/bz/ZeJ25vXUm7t0YFZbNrDxBiSGnd0s+7K6ZBxv4RXuiQzoU0LENHtAvM1dn2D1zfe8tI6ttSLYnEY1xImYMKEl06CiULn0CZKkL1tZE/gt0vXk5jaot4Fbi210MbX+xE2WDijYeUiju3O6ivlXHAT0WkqwRJNZQ/mawbi2KsgLOqvVTyHfPPTYVjeT+iCQ3ucuvzZZIb0XIZiqXywr1wlJ4xqljAVLIR//d9ZaGrwDrNjC7QIDAQAB

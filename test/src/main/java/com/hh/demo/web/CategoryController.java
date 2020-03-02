@@ -25,12 +25,7 @@ public class CategoryController {
                                       HttpSession session){
         //登录判断
         User user = (User)session.getAttribute(Consts.USER);
-        if (user == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.NO_LOGIN.getStatus(),
-                    StatusEnum.NO_LOGIN.getMsg()
-            );
-        }
+
         //管理员权限认证
         if (user.getRole() != 0){
             return ServerResponse.serverResponseByFail(
@@ -50,12 +45,7 @@ public class CategoryController {
                                           @RequestParam("categoryName") String categoryName){
         //登录判断
         User user = (User)session.getAttribute(Consts.USER);
-        if (user == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.NO_LOGIN.getStatus(),
-                    StatusEnum.NO_LOGIN.getMsg()
-            );
-        }
+
         //管理员权限认证
         if (user.getRole() != 0){
             return ServerResponse.serverResponseByFail(

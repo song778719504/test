@@ -4,6 +4,7 @@ import com.hh.demo.entity.pojo.Order;
 import com.hh.demo.entity.pojo.OrderItem;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OrderMapper {
@@ -46,4 +47,14 @@ public interface OrderMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Order record);
+
+
+    Order findOrderByOrderNo(@Param("orderNo") Long orderNo);
+
+
+    int updateOrderStatus(
+            @Param("orderNo") Long orderNo,
+            @Param("payTime") Date payTime,
+            @Param("orderStatus") Integer orderStatus);
+
 }
