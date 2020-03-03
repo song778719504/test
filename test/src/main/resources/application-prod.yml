@@ -1,0 +1,49 @@
+server:
+  port: 8801
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/shopping?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      username: root
+      password: song778719504@
+      max-active: 20
+      max-wait: 60000
+      min-idle: 1
+      test-on-borrow: true
+      test-on-return: true
+mybatis:
+  #�����Լ������mapper�ļ���λ���޸�
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  config-location: classpath:mybatis-config.xml
+
+upload:
+  uploadPath: /imgs
+
+user:
+  username: root
+
+redis:
+  maxTotal: 8
+  maxIdle: 8
+  minIdle: 0
+  blockWhenExhausted: true
+  maxWaitMillis: 10000
+  testOnBorrow: true
+  testOnReturn: true
+  jmxEnabled: true
+  redisHost: 47.94.12.87
+  redisPort: 6379
+  redisPassword: song778719504
+  timeout: 1000
+  kvstore: kvstore
+
+alipay:
+  callback:
+    url: http://47.94.12.87:8801/order/alipay_callback.do
+  qrcode:
+    url: /pngs
+  public:
+    key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkknOmn7kA0lJLG5D5FFn3le1jlMHW2gLx2F1xJjz3aCrL/gcBMBRgNd+5dbv4LZ9sbaSa+rcq/R2KueuiRJoeR/0uQnOc+zuEguR/bz/ZeJ25vXUm7t0YFZbNrDxBiSGnd0s+7K6ZBxv4RXuiQzoU0LENHtAvM1dn2D1zfe8tI6ttSLYnEY1xImYMKEl06CiULn0CZKkL1tZE/gt0vXk5jaot4Fbi210MbX+xE2WDijYeUiju3O6ivlXHAT0WkqwRJNZQ/mawbi2KsgLOqvVTyHfPPTYVjeT+iCQ3ucuvzZZIb0XIZiqXywr1wlJ4xqljAVLIR//d9ZaGrwDrNjC7QIDAQAB
