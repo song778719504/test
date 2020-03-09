@@ -1,6 +1,7 @@
 package com.hh.demo.web;
 
 
+import com.hh.demo.annotation.AutoIdempontent;
 import com.hh.demo.common.Consts;
 import com.hh.demo.common.ServerResponse;
 import com.hh.demo.common.StatusEnum;
@@ -19,6 +20,7 @@ public class OrderController {
     @Autowired
     IOrderService orderService;
 
+    @AutoIdempontent
     @RequestMapping("create.do")
     public ServerResponse create(HttpSession session,Integer shippingId){
 

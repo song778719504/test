@@ -61,6 +61,10 @@ public enum StatusEnum {
     ORDER_STATUS_FAIL(43,"订单状态修改失败"),
 
 
+    TOKEN_GENERATE_FAIL(44,"token获取失败"),
+    TOKEN_EMPTY(45,"没有携带token"),
+    NOT_REPEATABLE(46,"不能重复提交"),
+
 
     ;
 

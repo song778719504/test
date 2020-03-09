@@ -9,8 +9,11 @@ import com.hh.demo.dao.ProductMapper;
 import com.hh.demo.entity.VO.ProductDetailVo;
 import com.hh.demo.entity.VO.ProductListVO;
 import com.hh.demo.entity.pojo.Product;
+import com.hh.demo.exception.BusinessException;
 import com.hh.demo.service.IProductService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -179,26 +182,25 @@ public class ProductService implements IProductService {
         return ServerResponse.serverResponseBySuccess(null,productDateVo);
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public ServerResponse reduceStock(Integer productId, Integer quantity) {
+    public ServerResponse reduceStock(Integer productId, Integer quantity,int type) {
 
-        if (productId == null || quantity == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.PARAM_NOT_EMPTY.getStatus(),
-                    StatusEnum.PARAM_NOT_EMPTY.getMsg()
-            );
-        }//扣库存
-
-        Product product = productMapper.selectByPrimaryKey(productId);
-        if (product == null){
-            return ServerResponse.serverResponseByFail(
-                    StatusEnum.PRODUCT_NOT_EXISTS.getStatus(),
-                    StatusEnum.PRODUCT_NOT_EXISTS.getMsg()
-            );
+        if(productId==null||quantity==null){
+            return ServerResponse.serverResponseByFail(StatusEnum.PARAM_NOT_EMPTY.getStatus(),StatusEnum.PARAM_NOT_EMPTY.getMsg());
         }
-        int count = productMapper.reduceStock(productId,product.getStock()-quantity);
-        if (count <= 0){
-            return ServerResponse.serverResponseByFail(
+
+        //更新库存
+        Product product=productMapper.selectByPrimaryKey(productId);
+        if(product==null){
+            return ServerResponse.serverResponseByFail(StatusEnum.PRODUCT_NOT_EXISTS.getStatus(),StatusEnum.PRODUCT_NOT_EXISTS.getMsg());
+        }
+        int count=productMapper.reduceStock(productId,type == 0 ? product.getStock()-quantity:product.getStock()+quantity);
+
+//System.out.println(1/0);
+
+        if(count<=0){
+            throw new BusinessException(
                     StatusEnum.REDUCE_STOCK_FAIL.getStatus(),
                     StatusEnum.REDUCE_STOCK_FAIL.getMsg()
             );

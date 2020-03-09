@@ -12,6 +12,7 @@ import com.hh.demo.entity.VO.ProductDetailVo;
 import com.hh.demo.entity.pojo.Cart;
 import com.hh.demo.entity.pojo.Order;
 import com.hh.demo.entity.pojo.OrderItem;
+import com.hh.demo.exception.BusinessException;
 import com.hh.demo.service.ICartService;
 import com.hh.demo.service.IOrderService;
 import com.hh.demo.service.IProductService;
@@ -20,6 +21,9 @@ import com.hh.demo.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -38,6 +42,11 @@ public class OrderService implements IOrderService {
     OrderMapper orderMapper;
     @Resource
     OrderItemMapper orderItemMapper;
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ,timeout = 10,readOnly =false,rollbackFor = {BusinessException.class},
+            propagation = Propagation.REQUIRED
+    )
+
 
     /**
      * 创建订单
@@ -186,7 +195,7 @@ public class OrderService implements IOrderService {
             Integer productId = orderItem.getProductId();
             Integer quantity = orderItem.getQuantity();
             //根据商品id减库存
-            ServerResponse serverResponse = productService.reduceStock(productId,quantity);
+            ServerResponse serverResponse = productService.reduceStock(productId,quantity,0);
             if (!serverResponse.isSuccess()){
                 return serverResponse;
             }
@@ -223,6 +232,9 @@ public class OrderService implements IOrderService {
         return System.currentTimeMillis();
     }
 
+    /**
+     * 计算总金额
+     * */
     private BigDecimal getOrderTotalPrice(List<OrderItem> orderItems){
         BigDecimal orderTotalPrice = new BigDecimal("0");
 
@@ -296,9 +308,63 @@ public class OrderService implements IOrderService {
     }
 
 
+    /**
+     * 取消订单
+     * */
     @Override
     public ServerResponse cancelOrder(Long orderNo) {
-        return null;
+
+        //1.参数校验
+        if(orderNo==null){
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.PARAM_NOT_EMPTY.getStatus(),
+                    StatusEnum.PARAM_NOT_EMPTY.getMsg()
+            );
+        }
+
+        //2.根据订单号查询订单是否存在
+
+        Order order= orderMapper.findOrderByOrderNo(orderNo);
+
+        if(order==null){//订单不存在
+            return ServerResponse.serverResponseByFail(
+                    StatusEnum.ORDER_NOT_EXISTS.getStatus(),
+                    StatusEnum.ORDER_NOT_EXISTS.getMsg()
+            );
+        }
+        //只有未付款的订单才能取消
+        if(order.getStatus()!=Consts.OrderStatusEnum.UNPAY.getStatus()){
+
+            return ServerResponse.serverResponseByFail(StatusEnum.ORDER_NOT_CANCEL.getStatus(),StatusEnum.ORDER_NOT_CANCEL.getMsg());
+        }
+
+        //取消订单
+        order.setStatus(Consts.OrderStatusEnum.CANCELED.getStatus());
+        int count=orderMapper.updateByPrimaryKey(order);
+
+        if(count<=0){
+            //订单取消失败
+            return ServerResponse.serverResponseByFail(StatusEnum.ORDER_CANCEL_FAIL.getStatus(),StatusEnum.ORDER_CANCEL_FAIL.getMsg());
+        }
+
+
+        //更新库存
+        List<OrderItem> orderItemLst=orderItemMapper.findOrderItemsByOrderNo(orderNo);
+
+        for(OrderItem orderItem:orderItemLst){
+            Integer quantity= orderItem.getQuantity();
+            Integer productId=orderItem.getProductId();
+
+            ServerResponse response=productService.reduceStock(productId,quantity,1);
+
+            if(!response.isSuccess()){
+                return ServerResponse.serverResponseByFail(StatusEnum.REDUCE_STOCK_FAIL.getStatus(),StatusEnum.REDUCE_STOCK_FAIL.getMsg());
+            }
+        }
+
+
+        return ServerResponse.serverResponseBySuccess(null,null);
+
     }
 
 

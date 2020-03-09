@@ -1,23 +1,32 @@
 package com.hh.demo.config;
 
+import com.hh.demo.interceptor.AutoIdempontentInterceptor;
 import com.hh.demo.interceptor.LoginCheckInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+@SpringBootConfiguration
 public class SpringBootInterceptorConfig implements WebMvcConfigurer {
 
     @Autowired
     LoginCheckInterceptor loginCheckInterceptor;
+    @Resource
+    AutoIdempontentInterceptor autoIdempontentInterceptor;
 
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        List<String> loginPath=new ArrayList<>();
 
+
+        registry.addInterceptor(autoIdempontentInterceptor);
+
+        List<String> loginPath=new ArrayList<>();
         loginPath.add("/manage/**");
         loginPath.add("/user/**");
         loginPath.add("/cart/**");

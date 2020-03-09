@@ -27,6 +27,6 @@ public interface IProductService {
     /**
      * 商品减库存
      */
-    ServerResponse reduceStock(Integer productId,Integer quantity);
+    ServerResponse reduceStock(Integer productId,Integer quantity,int type);
 
 }

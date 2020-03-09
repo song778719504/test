@@ -34,6 +34,15 @@ public class RedisApi {
         return value;
     }
 
+    public Long del(String key){
+
+        Jedis jedis = jedisPool.getResource();
+        Long result = jedis.del(key);
+        jedis.close();
+        return result;
+
+    }
+
     public Long setNx(String key,String value){
 
         Jedis jedis = jedisPool.getResource();
