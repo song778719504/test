@@ -16,7 +16,7 @@ public class FTPUtils {
     private String ftpIp;
     @Value("${ftp.user}")
     private String ftpUser;
-    @Value("${fpt.pass}")
+    @Value("${ftp.pass}")
     private String ftpPass;
 
     FTPClient ftpClient=new FTPClient();

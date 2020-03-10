@@ -20,10 +20,7 @@ public class ShippingController {
     @RequestMapping("add.do")
     public ServerResponse add(Shipping shipping, HttpSession session){
 
-
-
         User user=(User) session.getAttribute(Consts.USER);
-
 
         shipping.setUserId(user.getId());
 

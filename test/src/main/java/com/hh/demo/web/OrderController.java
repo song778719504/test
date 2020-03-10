@@ -34,9 +34,9 @@ public class OrderController {
     @RequestMapping("cancel.do")
     public ServerResponse cancel(Long orderNo){
 
-
         return orderService.cancelOrder(orderNo);
 
     }
+
 
 }
