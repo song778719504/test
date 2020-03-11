@@ -35,6 +35,9 @@ public class ProductFrontController {
     }
 
 
+    /**
+     * 商品详情
+     * */
     @RequestMapping("detail.do")
     public ServerResponse detail(Integer productId){
 

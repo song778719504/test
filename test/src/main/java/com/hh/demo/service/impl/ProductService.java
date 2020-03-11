@@ -134,8 +134,9 @@ public class ProductService implements IProductService {
         PageHelper.startPage(pageNum,pageSize);
 
         if (orderBy != null && !"".equals(orderBy)){
-            String[] orders = orderBy.split("_");
-            PageHelper.orderBy(orders[0]+" "+orders[1]);
+            /*String[] orders = orderBy.split("_");
+            PageHelper.orderBy(orders[0]+" "+orders[1]);*/
+            PageHelper.orderBy(orderBy);
         }
 
         List<Product> productList = productMapper.findProductByCategoryIdsAndKeyword(categoryIdList,keyword);

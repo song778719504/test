@@ -14,10 +14,13 @@ public class TokenController {
     @Autowired
     ITokenService tokenService;
 
+
+
     @RequestMapping("getToken")
     public ServerResponse generateToken(){
 
         return tokenService.generateToken();
     }
+
 
 }

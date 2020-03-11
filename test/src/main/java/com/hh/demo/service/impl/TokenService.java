@@ -31,6 +31,7 @@ public class TokenService implements ITokenService {
 
         //保存到redis
         redisApi.setEx(buffer.toString(),tokenTimeout,buffer.toString());
+        System.out.println("设置token="+redisApi.get(buffer.toString()));
 
         if (buffer.toString() != null && !"".equals(buffer.toString())){
             return ServerResponse.serverResponseBySuccess(null,buffer.toString());
@@ -47,10 +48,12 @@ public class TokenService implements ITokenService {
 
         //step1:先从请求头中获得token
         String token = request.getHeader(Consts.TOKEN_NAME);
+        System.out.println("token1=" + token);
         if (token == null || "".equals(token)){
             //step2:获取token
             token = request.getParameter(Consts.TOKEN_NAME);
         }
+        System.out.println("token2=" + token);
 
         if (token == null || "".equals(token)){
             //没有携带token
@@ -62,6 +65,7 @@ public class TokenService implements ITokenService {
 
         //step3:校验token是否存在
         String value = redisApi.get(token);
+        System.out.println("token3="+value);
         if (value == null || "".equals(value)){
             return ServerResponse.serverResponseByFail(
                     StatusEnum.NOT_REPEATABLE.getStatus(),
@@ -69,8 +73,11 @@ public class TokenService implements ITokenService {
             );
         }
 
+        System.out.println("token="+value);
+
         //step4:token有效，本次请求可以通过拦截器
         Long result = redisApi.del(token);
+        System.out.println("result="+result);
         if (request == null){
             return ServerResponse.serverResponseByFail(
                     StatusEnum.NOT_REPEATABLE.getStatus(),

@@ -31,6 +31,9 @@ public class OrderController {
 
     }
 
+    /**
+     * 取消订单
+     * */
     @RequestMapping("cancel.do")
     public ServerResponse cancel(Long orderNo){
 

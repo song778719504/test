@@ -15,7 +15,6 @@ spring:
       test-on-borrow: true
       test-on-return: true
 mybatis:
-  #�����Լ������mapper�ļ���λ���޸�
   mapper-locations: classpath*:mapper/*Mapper.xml
   config-location: classpath:mybatis-config.xml
 
